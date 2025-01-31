@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile Card</title>
+    <title>Interactive Profile Card</title>
     <style>
         :root {
             --primary-purple: #6a0dad;
@@ -20,71 +20,108 @@
             background-color: var(--soft-purple);
             margin: 0;
             font-family: 'Arial', sans-serif;
+            padding: 20px;
         }
 
         .profile-card {
             background-color: white;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(106, 13, 173, 0.2);
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
             padding: 30px;
             transition: transform 0.3s ease;
         }
 
         .profile-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
         }
 
         .profile-picture {
-            width: 150px;
-            height: 150px;
+            /* Natural dimensions preserved */
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: contain;
             border: 4px solid var(--primary-purple);
             transition: transform 0.3s ease;
+            background-color: white;
         }
 
         .profile-picture:hover {
-            transform: rotate(360deg);
+            transform: scale(1.1);
         }
 
-        .profile-name {
+        .name {
             color: var(--dark-purple);
+            font-size: 1.8em;
             margin: 15px 0 5px;
+            transition: color 0.3s ease;
         }
 
-        .profile-title {
+        .job-title {
             color: var(--light-purple);
+            font-size: 1.2em;
             margin-bottom: 15px;
         }
 
-        .profile-bio {
-            color: #666;
-            margin-bottom: 20px;
+        .bio {
+            color: #444;
+            line-height: 1.6;
+            margin: 20px 0;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        .location, .email {
+            color: var(--dark-purple);
+            margin: 10px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .location:hover, .email:hover {
+            transform: translateX(10px);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin: 25px 0;
         }
 
         .social-link {
-            color: var(--primary-purple);
+            color: white;
+            background-color: var(--primary-purple);
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
-            color: var(--light-purple);
+            background-color: var(--light-purple);
+            transform: scale(1.1);
         }
 
-        #utcTime {
-            margin-top: 15px;
+        .time {
             color: var(--dark-purple);
             font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 2px solid var(--soft-purple);
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 20px;
+            }
+
+            .profile-picture {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -96,26 +133,36 @@
             class="profile-picture"
             data-testid="profilePicture"
         >
-        <h2 class="profile-name" data-testid="fullName">victory Johnson</h2>
-        <h3 class="profile-title" data-testid="jobTitle">Frontend Developer</h3>
-        <p class="profile-bio" data-testid="shortBio">
-            Passionate frontend developer creating intuitive and responsive web experiences.
+        <h2 class="name" data-testid="fullName">Victory Johnson</h2>
+        <h3 class="job-title" data-testid="jobTitle">Frontend Developer</h3>
+        
+        <p class="bio" data-testid="shortBio">
+            A passionate frontend developer with 3 years of experience creating intuitive and responsive web applications. 
+            Specialized in React and modern JavaScript, with a keen eye for design and user experience. 
+            Currently focused on building accessible and performant web solutions.
         </p>
-        <p data-testid="currentLocation">Lagos, Nigeria</p>
-        <p data-testid="emailAddress">johnsonvictory911@gmail.com</p>
+        
+        <p class="location" data-testid="currentLocation">
+            📍 Lagos, Nigeria
+        </p>
+        
+        <p class="email" data-testid="emailAddress">
+            johnsonvictory911@gmail.com
+        </p>
         
         <div class="social-links" data-testid="socialLinks">
             <a href="https://victory-johnson.vercel.app/" class="social-link">portfolio</a>
             <a href="https://github.com/vctry4real" class="social-link">GitHub</a>
         </div>
         
-        <p id="utcTime" data-testid="currentTimeUTC"></p>
+        <p class="time" data-testid="currentTimeUTC" id="utcTime"></p>
     </div>
 
     <script>
         function updateUTCTime() {
             const utcTimeElement = document.getElementById('utcTime');
-            utcTimeElement.textContent = new Date().toUTCString();
+            const now = new Date();
+            utcTimeElement.textContent = `UTC Time: ${now.toUTCString()}`;
         }
         
         updateUTCTime();
