@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile Card</title>
+    <style>
+        :root {
+            --primary-purple: #6a0dad;
+            --light-purple: #9c27b0;
+            --dark-purple: #4a148c;
+            --soft-purple: #e6e6fa;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--soft-purple);
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(106, 13, 173, 0.2);
+            width: 350px;
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: rotate(360deg);
+        }
+
+        .profile-name {
+            color: var(--dark-purple);
+            margin: 15px 0 5px;
+        }
+
+        .profile-title {
+            color: var(--light-purple);
+            margin-bottom: 15px;
+        }
+
+        .profile-bio {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            color: var(--primary-purple);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--light-purple);
+        }
+
+        #utcTime {
+            margin-top: 15px;
+            color: var(--dark-purple);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <img 
+            src="profile-pic.png" 
+            alt="Profile Picture" 
+            class="profile-picture"
+            data-testid="profilePicture"
+        >
+        <h2 class="profile-name" data-testid="fullName">victory Johnson</h2>
+        <h3 class="profile-title" data-testid="jobTitle">Frontend Developer</h3>
+        <p class="profile-bio" data-testid="shortBio">
+            Passionate frontend developer creating intuitive and responsive web experiences.
+        </p>
+        <p data-testid="currentLocation">Lagos, Nigeria</p>
+        <p data-testid="emailAddress">johnsonvictory911@gmail.com</p>
+        
+        <div class="social-links" data-testid="socialLinks">
+            <a href="https://victory-johnson.vercel.app/" class="social-link">portfolio</a>
+            <a href="https://github.com/vctry4real" class="social-link">GitHub</a>
+        </div>
+        
+        <p id="utcTime" data-testid="currentTimeUTC"></p>
+    </div>
+
+    <script>
+        function updateUTCTime() {
+            const utcTimeElement = document.getElementById('utcTime');
+            utcTimeElement.textContent = new Date().toUTCString();
+        }
+        
+        updateUTCTime();
+        setInterval(updateUTCTime, 1000);
+    </script>
+</body>
+</html>
